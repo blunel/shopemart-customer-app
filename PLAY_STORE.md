@@ -84,9 +84,11 @@ First release of the ShopeMart app: browse, order, track and save.
 
 | Asset | Size | Source |
 |---|---|---|
-| App icon | 512 x 512 PNG | `assets/icon.png` (1024 x 1024), downscale |
-| Feature graphic | 1024 x 500 PNG | to be designed (logo + "Shop. Pay on delivery.") |
+| App icon | 512 x 512 PNG | `store-assets/icon-512.png` (ready) |
+| Feature graphic | 1024 x 500 PNG | `store-assets/feature-graphic-1024x500.png` (ready) |
 | Phone screenshots | at least 2, 16:9 or 9:16, 320-3840 px | Home, Product, Cart, Checkout, Orders |
+
+Screenshots are not included: take them from the real release build with real products (the local test data has placeholder names). On a phone: 1080 x 1920 or similar, no taller than 2:1.
 
 ## App content declarations
 
