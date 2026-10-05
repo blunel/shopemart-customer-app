@@ -21,6 +21,7 @@ export default function RootLayout() {
           <Stack.Screen name="checkout" options={{ title: 'Checkout' }} />
           <Stack.Screen name="order/[id]" options={{ title: 'Order' }} />
           <Stack.Screen name="wishlist" options={{ title: 'Wishlist' }} />
+          <Stack.Screen name="delete-account" options={{ title: 'Delete account' }} />
         </Stack>
       </ShopProvider>
     </AuthProvider>

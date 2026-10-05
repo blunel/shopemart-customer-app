@@ -75,6 +75,11 @@ export default function AccountScreen() {
       </Section>
 
       {user ? <Button label="Sign out" variant="danger" onPress={confirmLogout} style={{ marginTop: spacing.xl }} /> : null}
+      {user ? (
+        <TouchableOpacity onPress={() => router.push('/delete-account')} style={{ marginTop: spacing.lg, padding: spacing.sm }}>
+          <Text style={{ textAlign: 'center', color: colors.textMuted, fontSize: 13, textDecorationLine: 'underline' }}>Delete account</Text>
+        </TouchableOpacity>
+      ) : null}
       <Text style={{ textAlign: 'center', color: colors.textMuted, fontSize: 12, marginTop: spacing.lg }}>ShopeMart {Constants.expoConfig?.version || ''}</Text>
     </ScrollView>
   );
