@@ -44,7 +44,7 @@ export default function ProductCard({ item }) {
 
 const styles = StyleSheet.create({
   card: { flex: 1, backgroundColor: colors.card, borderRadius: radius.md, borderWidth: 1, borderColor: colors.border, overflow: 'hidden' },
-  img: { width: '100%', aspectRatio: 1, backgroundColor: colors.border },
+  img: { width: '100%', aspectRatio: 0.8, backgroundColor: colors.border },
   name: { fontSize: 13.5, color: colors.textPrimary, fontWeight: '600', minHeight: 36 },
   price: { fontSize: 15.5, fontWeight: '800', color: colors.deep },
   was: { fontSize: 12, color: colors.textMuted, textDecorationLine: 'line-through' },

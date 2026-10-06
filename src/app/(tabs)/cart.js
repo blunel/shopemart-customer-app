@@ -1,5 +1,6 @@
 import { View, Text, FlatList, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Minus, Plus, Trash2, ShoppingCart } from 'lucide-react-native';
 import { useShop, lineKey } from '../../ShopContext';
 import { Button, Empty } from '../../ui';
@@ -8,6 +9,7 @@ import { colors, spacing, radius, typography, money } from '../../theme';
 export default function CartScreen() {
   const router = useRouter();
   const { items, subtotal, setQty, remove } = useShop();
+  const insets = useSafeAreaInsets(); // keeps the bottom bar above the phone's own back/home buttons
 
   if (items.length === 0) {
     return (
@@ -24,7 +26,7 @@ export default function CartScreen() {
       <FlatList
         data={items}
         keyExtractor={lineKey}
-        contentContainerStyle={{ padding: spacing.lg, gap: spacing.sm, paddingBottom: 130 }}
+        contentContainerStyle={{ padding: spacing.lg, gap: spacing.sm, paddingBottom: 130 + insets.bottom }}
         renderItem={({ item: i }) => {
           const k = lineKey(i);
           return (
@@ -49,7 +51,7 @@ export default function CartScreen() {
           );
         }}
       />
-      <View style={styles.bar}>
+      <View style={[styles.bar, { paddingBottom: spacing.md + insets.bottom }]}>
         <View>
           <Text style={typography.caption}>Subtotal</Text>
           <Text style={{ fontSize: 20, fontWeight: '800', color: colors.deep }}>{money(subtotal)}</Text>

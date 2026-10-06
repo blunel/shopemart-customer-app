@@ -1,6 +1,7 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { View, Text, ScrollView, FlatList, Image, StyleSheet, TouchableOpacity, useWindowDimensions } from 'react-native';
 import { useLocalSearchParams, useNavigation, useRouter } from 'expo-router';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Heart, Minus, Plus, Share2, Star, Truck, RotateCcw } from 'lucide-react-native';
 import { Share } from 'react-native';
 import { product as fetchProduct, related as fetchRelated, feedback as fetchFeedback, picture } from '../../api';
@@ -30,6 +31,7 @@ export default function ProductScreen() {
   const [pickError, setPickError] = useState('');
   const [at, setAt] = useState(0);
   const gallery = useRef(null);
+  const insets = useSafeAreaInsets(); // keeps the bottom bar above the phone's own back/home buttons
 
   useEffect(() => {
     setP(null); setError(''); setColor(''); setSize(''); setQty(1); setAt(0);
@@ -110,14 +112,14 @@ export default function ProductScreen() {
 
   return (
     <View style={styles.screen}>
-      <ScrollView contentContainerStyle={{ paddingBottom: 110 }}>
+      <ScrollView contentContainerStyle={{ paddingBottom: 110 + insets.bottom }}>
         <FlatList
           ref={gallery}
           data={images.length ? images : [null]}
           horizontal pagingEnabled showsHorizontalScrollIndicator={false}
           keyExtractor={(u, i) => `${u}-${i}`}
           onMomentumScrollEnd={(e) => setAt(Math.round(e.nativeEvent.contentOffset.x / width))}
-          renderItem={({ item }) => (item ? <Image source={{ uri: item }} style={{ width, height: width, backgroundColor: colors.border }} resizeMode="cover" /> : <View style={{ width, height: width, backgroundColor: colors.primaryTint }} />)}
+          renderItem={({ item }) => (item ? <Image source={{ uri: item }} style={{ width, height: width * 1.25, backgroundColor: colors.background }} resizeMode="contain" /> : <View style={{ width, height: width * 1.25, backgroundColor: colors.primaryTint }} />)}
         />
         {images.length > 1 ? (
           <View style={{ flexDirection: 'row', justifyContent: 'center', gap: 5, marginTop: 8 }}>
@@ -246,7 +248,7 @@ export default function ProductScreen() {
         ) : null}
       </ScrollView>
 
-      <View style={styles.bar}>
+      <View style={[styles.bar, { paddingBottom: spacing.md + insets.bottom }]}>
         <Button label="Add to cart" variant="outline" onPress={() => addToCart(false)} disabled={!canBuy} style={{ flex: 1 }} />
         <Button label={!p.inStock && p.preorderAllowed ? 'Pre-order' : 'Buy now'} onPress={() => addToCart(true)} disabled={!canBuy} style={{ flex: 1 }} />
       </View>
